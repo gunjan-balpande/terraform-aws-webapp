@@ -92,21 +92,12 @@ resource "aws_instance" "web" {
   # Pull the startup script from the GitHub repository
   user_data = <<-EOF
     #!/bin/bash
-    # Install Git
-    yum install -y git
-
-    # Clone the startup script repository
-    git clone https://github.com/gunjan-balpande/startup-script.git /tmp/startup-scripts
-
-    # Execute the startup script
-    chmod +x /tmp/startup-scripts/startup.sh
-    /tmp/startup-scripts/startup.sh
+    yum update -y
+    yum install -y httpd
+    systemctl start httpd
+    systemctl enable httpd
+    echo "<h1>Welcome to the Web Server</h1>" > /var/www/html/index.html
   EOF
-
-  tags = {
-    Name = "WebServerInstance"
-  }
-}
 
 
 # Configure S3 backend for storing Terraform state

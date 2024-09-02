@@ -92,11 +92,14 @@ resource "aws_instance" "web" {
   # Pull the startup script from the GitHub repository
   user_data = <<-EOF
     #!/bin/bash
-    yum update -y
-    yum install -y httpd
-    systemctl start httpd
-    systemctl enable httpd
-    echo "<h1>Welcome to the Web Server</h1>" > /var/www/html/index.html
+    # Install Git
+    yum install -y git
+
+    # Clone the startup script repository
+    git clone https://github.com/gunjan-balpande/startup-script.git
+
+    # Execute the startup script
+    /tmp/startup-scripts/startup.sh
   EOF
 
   tags = {

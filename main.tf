@@ -81,7 +81,7 @@ resource "aws_security_group" "web_sg" {
 
 # Create an EC2 instance
 resource "aws_instance" "web" {
-  ami           = "ami-0c55b159cbfafe1f0"  # Amazon Linux 2 AMI
+  ami           = "ami-0ba84480150a07294"  # Amazon Linux 2 AMI
   instance_type = "t2.micro"
   subnet_id     = aws_subnet.public.id
   security_groups = [aws_security_group.web_sg.name]
@@ -104,7 +104,7 @@ resource "aws_instance" "web" {
 # Configure S3 backend for storing Terraform state
 terraform {
   backend "s3" {
-    bucket = "bucket-for-terraform-88"
+    bucket = "my-bucket-for-terraform-gunjan"
     key    = "terraform/state"
     region = "us-west-2"
     encrypt = true

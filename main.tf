@@ -79,15 +79,14 @@ resource "aws_security_group" "web_sg" {
   }
 }
 
-
 # Create an EC2 instance
 resource "aws_instance" "web" {
   ami           = "ami-0ba84480150a07294"  # Replace with a valid Amazon Linux 2 AMI ID for your region
   instance_type = "t2.micro"
   subnet_id     = aws_subnet.public.id
-  security_groups = [aws_security_group.web_sg.name]
+  vpc_security_group_ids = [aws_security_group.web_sg.id]
 
-  # Pull the startup script from the GitHub repository
+  # User data script to configure the instance
   user_data = <<-EOF
     #!/bin/bash
     yum update -y
@@ -101,8 +100,6 @@ resource "aws_instance" "web" {
     Name = "WebServerInstance"
   }
 }
-
-
 
 # Configure S3 backend for storing Terraform state
 terraform {

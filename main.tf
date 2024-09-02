@@ -99,6 +99,7 @@ resource "aws_instance" "web" {
     git clone https://github.com/gunjan-balpande/startup-script.git /tmp/startup-scripts
 
     # Execute the startup script
+    chmod +x /tmp/startup-scripts/startup.sh
     /tmp/startup-scripts/startup.sh
   EOF
 

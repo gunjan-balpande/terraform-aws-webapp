@@ -96,7 +96,7 @@ resource "aws_instance" "web" {
     yum install -y git
 
     # Clone the startup script repository
-    git clone https://github.com/gunjan-balpande/startup-script.git
+    git clone https://github.com/gunjan-balpande/startup-script.git /tmp/startup-scripts
 
     # Execute the startup script
     /tmp/startup-scripts/startup.sh
